@@ -10,8 +10,7 @@ const client = new ApifyClient({
 // Prepare actor input
 const input = {
     "directUrls": [
-        "hhttps://www.instagram.com/p/CKSwhnBJK-i/",
-        "https://www.instagram.com/p/CGdl6M_Jh1l/"
+        "https://www.instagram.com/p/CGdl6M_Jh1l/",
     ],
     "resultsLimit": 5
 };
@@ -23,9 +22,9 @@ router.route("/").get((req, res) => {
         const run = await client.actor("zuzka/instagram-comment-scraper").call(input);
 
         // Fetch and print actor results from the run's dataset (if any)
-        console.log('Results from dataset');
+        //console.log('Results from dataset');
         const { items } = await client.dataset(run.defaultDatasetId).listItems();
-        console.log(items)
+        //console.log(items)
         return res.status(200).send(JSON.stringify(items));
         items.forEach((item) => {
             console.log(item);
