@@ -9,12 +9,15 @@ const bp = require("body-parser");
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
+const apify_apiRoutes = require("./routes/apify_routes");
+
+dotenv.config();
+const PORT = process.env.PORT || 8080;
 const apiRoutes = require("./routes/apiRoutes");
 const cohereRoutes = require("./routes/cohereRoutes");
 const resultRoutes = require("./routes/resultRoutes");
-
-dotenv.config();
-const PORT = process.env.PORT ?? 8080;
+//dotenv.config();
+//const PORT = process.env.PORT ?? 8080;
 app.use(cors());
 
 app.use(express.json());
@@ -23,7 +26,11 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use("/api", apiRoutes);
+app.use("/apify", apify_apiRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
+});
 app.use("/cohere", cohereRoutes);
 app.use("/result", resultRoutes);
 
