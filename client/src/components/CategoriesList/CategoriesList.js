@@ -1,6 +1,6 @@
 import ListItem from "../ListItem/ListItem";
 
-export default function () {
+export default function CategoriesList() {
   return (
     <ul>
       <ListItem />
