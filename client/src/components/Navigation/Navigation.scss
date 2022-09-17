@@ -1,0 +1,17 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    padding: .5rem 1rem;
+
+    &__logo {
+        height: 1.75rem;
+    }
+
+    &__link {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+
+    }
+}
