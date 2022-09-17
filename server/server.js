@@ -9,6 +9,7 @@ app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
 const apiRoutes = require("./routes/apiRoutes");
+const cohereRoutes = require("./routes/cohereRoutes");
 
 dotenv.config();
 const PORT = process.env.PORT ?? 8080;
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", apiRoutes);
+app.use("/cohere", cohereRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
