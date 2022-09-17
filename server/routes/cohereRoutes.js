@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const cohere = require("cohere-ai");
+const dotenv = require("dotenv");
+dotenv.config();
 
-cohere.init("YxtWtZlj7yHmW9QsVMWefuLym6qGOOgCA4CVPGGf");
+cohere.init(process.env.COHERE_KEY);
 
 router.route("/").get((req, res) => {
   (async () => {

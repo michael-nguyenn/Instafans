@@ -25,5 +25,5 @@ app.use("/api", apiRoutes);
 app.use("/cohere", cohereRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Example app listening on port ${PORT}`, process.env.COHERE_KEY);
 });
