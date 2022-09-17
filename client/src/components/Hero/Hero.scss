@@ -1,0 +1,44 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    gap: 2rem;
+
+    @include tablet {
+        flex-direction: row;
+        padding: 7rem 3rem;
+        gap: 6rem;
+    }
+
+    &__col {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+    }
+
+    &__text {
+        width: 27rem;
+        display: flex;
+        text-align: center;
+
+        @include tablet {
+            text-align: left;
+        }
+    }
+
+    &__player {
+        height: 20rem;
+    
+        @include tablet {
+            height: 30rem;
+        }
+    }
+}
