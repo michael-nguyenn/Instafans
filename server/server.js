@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const app = express();
+const mongoose = require("mongoose");
 
 const bp = require("body-parser");
 
@@ -24,6 +25,14 @@ app.get("/", (req, res) => {
 app.use("/api", apiRoutes);
 app.use("/cohere", cohereRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`, process.env.COHERE_KEY);
-});
+const start = async () => {
+  try {
+    await mongoose.connect(process.env.DB_CONNECTION);
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+start();
