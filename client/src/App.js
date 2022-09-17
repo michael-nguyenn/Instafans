@@ -1,10 +1,19 @@
-import { Fragment } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import StartPage from "./pages/StartPage/StartPage";
+import LoadingPage from "./pages/LoadingPage/LoadingPage";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
 
 function App() {
   return (
-    <Fragment>
-      <h1>Hello world</h1>
-    </Fragment>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/start" element={<StartPage />} />
+        <Route path="/loading" element={<LoadingPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
