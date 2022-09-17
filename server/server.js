@@ -11,6 +11,7 @@ app.use(bp.urlencoded({ extended: true }));
 
 const apiRoutes = require("./routes/apiRoutes");
 const cohereRoutes = require("./routes/cohereRoutes");
+const resultRoutes = require("./routes/resultRoutes");
 
 dotenv.config();
 const PORT = process.env.PORT ?? 8080;
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api", apiRoutes);
 app.use("/cohere", cohereRoutes);
+app.use("/result", resultRoutes);
 
 const start = async () => {
   try {
