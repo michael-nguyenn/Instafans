@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./StartForm.scss";
+import data from "../../data/data.json";
 // import Box from "@mui/material/Box";
 // import Slider from "@mui/material/Slider";
 
@@ -20,11 +21,15 @@ export default function StartForm() {
 
     try {
       console.log("loading...");
-      const response = await axios.post("http://localhost:8080/apify", {
-        username: enteredName,
-      });
+      // const response = await axios.post("http://localhost:8080/apify", {
+      //   username: enteredName,
+      // });
 
-      const comments = response.data;
+      // const comments = response.data;
+
+      const comments = data;
+
+      console.log(comments);
 
       let filteredArray = [];
 
@@ -36,14 +41,19 @@ export default function StartForm() {
 
       setUserArray(filteredArray);
 
-      let result = userArray.map(({ text }) => text);
+      if (userArray) {
+        let result = userArray.map(({ text }) => text);
 
-      const secondResponse = await axios.post("http://localhost:8080/cohere", {
-        text: result,
-      });
+        const secondResponse = await axios.post(
+          "http://localhost:8080/cohere",
+          {
+            text: result,
+          }
+        );
 
-      setPredictions(secondResponse.data);
-      console.log("done");
+        setPredictions(secondResponse.data);
+        console.log("done");
+      }
     } catch (error) {
       console.log(error.message);
     }
