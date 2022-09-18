@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import "./styles/global.scss";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import StartPage from "./pages/StartPage/StartPage";
@@ -7,6 +7,8 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import { Navigation } from "./components/Navigation/Navigation";
 
 function App() {
+  let { username } = useParams();
+  console.log(username);
   return (
     <BrowserRouter>
       <Navigation />
@@ -14,7 +16,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/start" element={<StartPage />} />
         <Route path="/loading" element={<LoadingPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dashboard/:username" element={<DashboardPage />} />
       </Routes>
     </BrowserRouter>
   );
