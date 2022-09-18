@@ -1,9 +1,9 @@
 import StartForm from "../../components/StartForm/StartForm.js";
 
-export default function StartPage() {
+export default function StartPage({ loading, setLoading }) {
   return (
     <>
-      <StartForm />
+      <StartForm loading={loading} setLoading={setLoading} />
     </>
   );
 }
