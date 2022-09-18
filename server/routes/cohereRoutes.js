@@ -6,17 +6,11 @@ dotenv.config();
 
 cohere.init(process.env.COHERE_KEY);
 
-router.route("/").get((req, res) => {
+router.route("/").post((req, res) => {
   (async () => {
     const response = await cohere.classify({
       model: "xlarge",
-      inputs: [
-        "You're a peach!",
-        "Buy this stock now",
-        "Click this",
-        "You looked better yesterday",
-        "I really want to be there",
-      ],
+      inputs: req.body.text,
       examples: [
         { text: "You look so pretty!!", label: "Hypeman" },
         { text: "babe", label: "Secret Admirer" },
@@ -38,7 +32,7 @@ router.route("/").get((req, res) => {
           label: "Hypeman",
         },
         { text: "you're are so hot", label: "Secret Admirer" },
-        { text: "🔥", label: "Secret Admirer" },
+        { text: "🔥", label: "Hypeman" },
         { text: "🔥🔥", label: "Hypeman" },
         { text: "😀", label: "Secret Admirer" },
         { text: "😀😀", label: "Hypeman" },
