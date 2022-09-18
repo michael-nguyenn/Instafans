@@ -5,6 +5,7 @@ import "./StartForm.scss";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import LoadingBar from "../LoadingBar/LoadingBar";
+import data from "../../data/data.json";
 
 function valuetext(value) {
   return `${value}`;
@@ -32,7 +33,11 @@ export default function StartForm({ loading, setLoading }) {
         username: enteredName,
       });
 
-      const comments = response.data;
+      // const comments = response.data;
+
+      const comments = data;
+
+      console.log(comments);
 
       let filteredArray = [];
 
@@ -44,8 +49,13 @@ export default function StartForm({ loading, setLoading }) {
 
       setUserArray(filteredArray);
 
+      console.log(userArray);
+
       if (userArray) {
-        let result = await userArray.map(({ text }) => text);
+        console.log("user array");
+        let result = userArray.map(({ text }) => text);
+
+        console.log(result);
 
         const secondResponse = await axios.post(
           "http://localhost:8080/cohere",
@@ -54,6 +64,7 @@ export default function StartForm({ loading, setLoading }) {
           }
         );
 
+        console.log(secondResponse.data);
         setPredictions(secondResponse.data);
         console.log("done");
         setLoading(false);
