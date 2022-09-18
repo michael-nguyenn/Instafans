@@ -41,10 +41,9 @@ export default function StartForm() {
 
       setUserArray(filteredArray);
 
-      console.log(userArray);
+      console.log(filteredArray);
 
       if (userArray) {
-        console.log("user array");
         let result = userArray.map(({ text }) => text);
 
         console.log(result);
@@ -79,9 +78,9 @@ export default function StartForm() {
         }
       }
     });
-
-    console.log(predictions);
   }
+
+  console.log(predictions);
 
   return (
     <>
