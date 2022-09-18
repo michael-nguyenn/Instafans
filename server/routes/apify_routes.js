@@ -28,13 +28,6 @@ router.route("/").post((req, res) => {
     //console.log('Results from dataset');
     const { items } = await client.dataset(run.defaultDatasetId).listItems();
 
-    // const alteredItems = items.filter((item) => {
-
-    //   let itemArray = [];
-
-    //   return itemArray;
-    // });
-
     let itemArray = [];
 
     for (const item of items) {
