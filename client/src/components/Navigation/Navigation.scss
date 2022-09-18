@@ -1,0 +1,34 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+
+    &__logo {
+        height: 1.75rem;
+    }
+
+    &__link {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+    }
+
+    &__account {
+        margin-right: 2rem;
+        @include button;
+        background-color: $primary-color;
+        color: white;
+
+        &:hover {
+            background-color: $button-primary-color;
+            color: $button-primary-text;
+            border: 1px solid $button-border;  
+        }
+    }
+}

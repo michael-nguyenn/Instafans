@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import "./styles/global.scss";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import StartPage from "./pages/StartPage/StartPage";
+import LoadingPage from "./pages/LoadingPage/LoadingPage";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
+import { Navigation } from "./components/Navigation/Navigation";
+import { useState } from "react";
 
 function App() {
+  const [loading, setLoading] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/start"
+          element={<StartPage loading={loading} setLoading={setLoading} />}
+        />
+        <Route path="/loading" element={<LoadingPage />} />
+        <Route path="/dashboard/:username" element={<DashboardPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
