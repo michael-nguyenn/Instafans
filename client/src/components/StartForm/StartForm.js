@@ -28,7 +28,7 @@ export default function StartForm({ loading, setLoading }) {
 
     try {
       console.log("loading...");
-      // setLoading(true);
+      setLoading(true);
       // const response = await axios.post("http://localhost:8080/apify", {
       //   username: enteredName,
       // });
@@ -56,6 +56,7 @@ export default function StartForm({ loading, setLoading }) {
         let result = userArray.map(({ text }) => text);
 
         console.log(result);
+        setLoading(false);
 
         const secondResponse = await axios.post(
           "http://localhost:8080/cohere",
@@ -104,42 +105,40 @@ export default function StartForm({ loading, setLoading }) {
     },
   ];
 
-  console.log(predictions);
-
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <LoadingBar />
-      ) : ( */}
-      <form className="form" onSubmit={requestHandler}>
-        <div className="form__container">
-          <h2 className="form__header">
-            We just need a few things to get started...
-          </h2>
-          <p>What's your instagram handle?</p>
-          <input
-            required
-            value={enteredName}
-            onChange={(event) => setEnteredName(event.target.value)}
-            placeholder="@Lydiash.an"
-          ></input>
-          <p className="form__text">
-            How many comments do you want us to analyze?
-          </p>
-          <Box sx={{ width: 400 }} className="form__slider">
-            <Slider
-              getAriaLabel={() => "Comment range"}
-              value={value}
-              onChange={handleChange}
-              valueLabelDisplay="off"
-              getAriaValueText={valuetext}
-              marks={marks}
-            />
-          </Box>
-          <button className="form__button">Continue</button>
-        </div>
-      </form>
-      {/* )} */}
+      ) : (
+        <form className="form" onSubmit={requestHandler}>
+          <div className="form__container">
+            <h2 className="form__header">
+              We just need a few things to get started...
+            </h2>
+            <p>What's your instagram handle?</p>
+            <input
+              required
+              value={enteredName}
+              onChange={(event) => setEnteredName(event.target.value)}
+              placeholder="@Lydiash.an"
+            ></input>
+            <p className="form__text">
+              How many comments do you want us to analyze?
+            </p>
+            <Box sx={{ width: 400 }} className="form__slider">
+              <Slider
+                getAriaLabel={() => "Comment range"}
+                value={value}
+                onChange={handleChange}
+                valueLabelDisplay="off"
+                getAriaValueText={valuetext}
+                marks={marks}
+              />
+            </Box>
+            <button className="form__button">Continue</button>
+          </div>
+        </form>
+      )}
     </>
   );
 }

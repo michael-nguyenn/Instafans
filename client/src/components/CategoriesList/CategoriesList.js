@@ -1,4 +1,3 @@
-import ListItem from "../ListItem/ListItem";
 import React from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
@@ -41,7 +40,7 @@ export default function CategoriesList() {
       </div>
     </div>,
     <div className="item" data-value="3">
-      <span className="hater__category">☠️&nbsp; Low Key Admirer</span>
+      <span className="hater__category">☠️&nbsp; Low Key Hater</span>
       <img src={hater} className="item__image"></img>
       <div className="item__container">
         <h3>Javas Cript</h3>
