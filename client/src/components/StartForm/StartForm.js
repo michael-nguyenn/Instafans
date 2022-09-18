@@ -41,8 +41,13 @@ export default function StartForm() {
 
       setUserArray(filteredArray);
 
+      console.log(userArray);
+
       if (userArray) {
+        console.log("user array");
         let result = userArray.map(({ text }) => text);
+
+        console.log(result);
 
         const secondResponse = await axios.post(
           "http://localhost:8080/cohere",
@@ -51,6 +56,7 @@ export default function StartForm() {
           }
         );
 
+        console.log(secondResponse.data);
         setPredictions(secondResponse.data);
         console.log("done");
       }
