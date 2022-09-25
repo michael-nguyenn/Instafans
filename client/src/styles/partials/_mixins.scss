@@ -16,8 +16,9 @@
 @mixin button {
     padding: .75rem 2rem;
     border-radius: 30rem;
-    border: 1px solid $text-color;
-    background-color: white;
+    border: 1px solid $button-border;
+    background-color: $button-primary-color;
+    color: $button-primary-text;
 
     @include tablet {
         padding: .75rem 2.25rem;
@@ -33,6 +34,7 @@
 
 @mixin input {
     padding: .75rem .5rem;
-    border-radius: .5rem;
+    border-radius: 2rem;
     border: 1px solid $secondary-color;
+    margin: .5rem 0;
 }

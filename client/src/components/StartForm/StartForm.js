@@ -2,116 +2,123 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./StartForm.scss";
+import LoadingBar from "../LoadingBar/LoadingBar";
 import data from "../../data/data.json";
-// import Box from "@mui/material/Box";
-// import Slider from "@mui/material/Slider";
 
-export default function StartForm() {
-  const [enteredName, setEnteredName] = useState("");
-  const [predictions, setPredictions] = useState("");
-  const [userArray, setUserArray] = useState("");
-
+export default function StartForm({
+  loading,
+  setLoading,
+  requestHandler,
+  setEnteredName,
+  enteredName,
+}) {
   const navigate = useNavigate();
-  const handleClick = () => {
-    // navigate("/loading");
-  };
 
-  const requestHandler = async (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-
-    try {
-      console.log("loading...");
-      // const response = await axios.post("http://localhost:8080/apify", {
-      //   username: enteredName,
-      // });
-
-      // const comments = response.data;
-
-      const comments = data;
-
-      console.log(comments);
-
-      let filteredArray = [];
-
-      for (let i = 0; i < comments.length; i++) {
-        for (let j = 0; j < comments[i].length; j++) {
-          filteredArray.push(comments[i][j]);
-        }
-      }
-
-      setUserArray(filteredArray);
-
-      console.log(filteredArray);
-
-      if (userArray) {
-        let result = userArray.map(({ text }) => text);
-
-        console.log(result);
-
-        const secondResponse = await axios.post(
-          "http://localhost:8080/cohere",
-          {
-            text: result,
-          }
-        );
-
-        console.log(secondResponse.data);
-        setPredictions(secondResponse.data);
-        console.log("done");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    console.log(loading);
+    await requestHandler();
+    console.log(loading);
+    navigate(`/dashboard/${enteredName}`);
   };
 
-  let usernameArray = [];
+  // const navigate = useNavigate();
+  // const [enteredName, setEnteredName] = useState("");
+  // const [predictions, setPredictions] = useState("");
+  // const [userArray, setUserArray] = useState("");
 
-  for (const user of userArray) {
-    usernameArray.push(user.ownerUsername);
-  }
+  // const requestHandler = async (event) => {
+  //   event.preventDefault();
 
-  if (predictions) {
-    predictions.forEach((prediction, index) => {
-      for (let i = 0; i < usernameArray.length; i++) {
-        if (i === index) {
-          prediction.username = usernameArray[i];
-        }
-      }
-    });
-  }
+  //   try {
+  //     console.log("loading...");
+  //     // setLoading(true);
+  //     // const response = await axios.post("http://localhost:8080/apify", {
+  //     //   username: enteredName,
+  //     // });
 
-  console.log(predictions);
+  //     // const comments = response.data;
+
+  //     const comments = data;
+
+  //     console.log(comments);
+
+  //     let filteredArray = [];
+
+  //     for (let i = 0; i < comments.length; i++) {
+  //       for (let j = 0; j < comments[i].length; j++) {
+  //         filteredArray.push(comments[i][j]);
+  //       }
+  //     }
+
+  //     setUserArray(filteredArray);
+
+  //     console.log(userArray);
+
+  //     if (userArray) {
+  //       console.log("user array");
+  //       let result = userArray.map(({ text }) => text);
+
+  //       console.log(result);
+  //       setLoading(false);
+
+  //       const secondResponse = await axios.post(
+  //         "http://localhost:8080/cohere",
+  //         {
+  //           text: result,
+  //         }
+  //       );
+
+  //       console.log(secondResponse.data);
+  //       setPredictions(secondResponse.data);
+  //       console.log("done");
+  //       // setLoading(false);
+  //       navigate(`/dashboard/${enteredName}`);
+  //     }
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+
+  // let usernameArray = [];
+
+  // for (const user of userArray) {
+  //   usernameArray.push(user.ownerUsername);
+  // }
+
+  // if (predictions) {
+  //   predictions.forEach((prediction, index) => {
+  //     for (let i = 0; i < usernameArray.length; i++) {
+  //       if (i === index) {
+  //         prediction.username = usernameArray[i];
+  //       }
+  //     }
+  //   });
+
+  //   console.log("predictions", predictions);
+  // }
 
   return (
     <>
-      <form className="form" onSubmit={requestHandler}>
-        <div className="form__container">
-          <h2 className="form__header">
-            We just need a few things to get started
-          </h2>
-          <p>What's your instagram handle?</p>
-          <input
-            required
-            value={enteredName}
-            onChange={(event) => setEnteredName(event.target.value)}
-            placeholder="@Lydiash.an"
-          ></input>
-          <p>How many comments do you want us to analyze?</p>
-          {/* <Box>
-            <Slider
-              getAriaLabel={() => "Minimum distance"}
-              value={value1}
-              onChange={handleChange1}
-              valueLabelDisplay="auto"
-              getAriaValueText={valuetext}
-              disableSwap
-            />
-          </Box> */}
-          <button className="form__button" onClick={handleClick()}>
-            Continue
-          </button>
-        </div>
-      </form>
+      {loading ? (
+        <LoadingBar />
+      ) : (
+        <form className="form" onSubmit={submitHandler}>
+          <div className="form__container">
+            <h2 className="form__header">
+              We just need a few things to get started...
+            </h2>
+            <p>What's your instagram handle?</p>
+            <input
+              required
+              value={enteredName}
+              onChange={(event) => setEnteredName(event.target.value)}
+              placeholder="@Lydiash.an"
+            ></input>
+            <button className="form__button">Continue</button>
+          </div>
+        </form>
+      )}
     </>
   );
 }
