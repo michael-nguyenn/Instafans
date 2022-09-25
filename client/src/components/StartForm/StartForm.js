@@ -21,56 +21,39 @@ export default function StartForm() {
 
     try {
       console.log("loading...");
-      // const response = await axios.post("http://localhost:8080/apify", {
-      //   username: enteredName,
-      // });
+      const response = await axios.post("http://localhost:8080/apify", {
+        username: enteredName,
+      });
 
-      // const comments = response.data;
+      const comments = response.data;
 
-      const comments = data;
+      setUserArray(comments);
 
       console.log(comments);
 
-      let filteredArray = [];
+      let result = await comments.map(({ text }) => text);
 
-      for (let i = 0; i < comments.length; i++) {
-        for (let j = 0; j < comments[i].length; j++) {
-          filteredArray.push(comments[i][j]);
-        }
-      }
+      console.log(result);
 
-      setUserArray(filteredArray);
+      const cohereResponse = await axios.post("http://localhost:8080/cohere", {
+        text: result,
+      });
 
-      console.log(filteredArray);
-
-      if (userArray) {
-        let result = userArray.map(({ text }) => text);
-
-        console.log(result);
-
-        const secondResponse = await axios.post(
-          "http://localhost:8080/cohere",
-          {
-            text: result,
-          }
-        );
-
-        console.log(secondResponse.data);
-        setPredictions(secondResponse.data);
-        console.log("done");
-      }
+      setPredictions(cohereResponse.data);
+      console.log(cohereResponse);
+      console.log("done");
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  let usernameArray = [];
+  if (userArray && predictions) {
+    let usernameArray = [];
 
-  for (const user of userArray) {
-    usernameArray.push(user.ownerUsername);
-  }
+    for (const user of userArray) {
+      usernameArray.push(user.ownerUsername);
+    }
 
-  if (predictions) {
     predictions.forEach((prediction, index) => {
       for (let i = 0; i < usernameArray.length; i++) {
         if (i === index) {
