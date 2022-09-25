@@ -28,7 +28,7 @@ export default function StartForm({ loading, setLoading }) {
 
     try {
       console.log("loading...");
-      setLoading(true);
+      // setLoading(true);
       // const response = await axios.post("http://localhost:8080/apify", {
       //   username: enteredName,
       // });
@@ -122,19 +122,6 @@ export default function StartForm({ loading, setLoading }) {
               onChange={(event) => setEnteredName(event.target.value)}
               placeholder="@Lydiash.an"
             ></input>
-            <p className="form__text">
-              How many comments do you want us to analyze?
-            </p>
-            <Box sx={{ width: 400 }} className="form__slider">
-              <Slider
-                getAriaLabel={() => "Comment range"}
-                value={value}
-                onChange={handleChange}
-                valueLabelDisplay="off"
-                getAriaValueText={valuetext}
-                marks={marks}
-              />
-            </Box>
             <button className="form__button">Continue</button>
           </div>
         </form>
