@@ -1,0 +1,24 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 7rem 2rem;
+    min-width: 28rem;
+
+    @include tablet {
+        width: 100%
+    }
+
+
+    &__icon {
+        width: 30rem;
+    }
+
+    &__text {
+        text-align: center;
+    }
+}

@@ -1,0 +1,100 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.card-list {
+    margin: 4rem 0;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 30rem;
+    width: 22rem;
+    border-radius: 2rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 15px 0px;
+    margin: 2rem;
+
+    @include tablet {
+        width: 22rem;
+    }
+
+    @include desktop {
+        width: 25rem;
+    }
+
+    &__text {
+        text-align: center;
+        font-size: 1rem;
+        margin-bottom: .5rem;
+        color: $secondary-color;
+        height: 5rem;
+    }
+
+    &__image {
+        height: 14rem;
+    }
+
+    &__container{
+        height: 10rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin: 0 2rem
+    }
+}
+
+.hypeman {
+    &__category {
+        margin-top: -5rem;
+        padding: 1rem 2rem;
+        background-color: $hypeman-background-color;
+        color: $hypeman-font-color;
+        border-radius: 2rem;
+    }
+}
+
+.admirer {
+    &__category {
+        margin-top: -5rem;
+        padding: 1rem 2rem;
+        background-color: $admirer-background-color;
+        color: $admirer-font-color;
+        border-radius: 2rem;
+    }
+
+    &__button {
+        margin-top: 1rem;
+    }
+}
+
+
+.hater {
+    &__category {
+        margin-top: -5rem;
+        padding: 1rem 2rem;
+        background-color: $hater-background-color;
+        color: $hater-font-color;
+        border-radius: 2rem;
+    }
+
+    &__button {
+        margin-top: 1rem;
+    }
+}
+
+.bot {
+    &__category {
+        margin-top: -5rem;
+        padding: 1rem 2rem;
+        background-color: $bot-background-color;
+        color: $bot-font-color;
+        border-radius: 2rem;
+    }
+
+    &__button {
+        margin-top: 2rem;
+    }
+}
