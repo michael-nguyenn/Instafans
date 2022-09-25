@@ -28,13 +28,21 @@ router.route("/").post((req, res) => {
     //console.log('Results from dataset');
     const { items } = await client.dataset(run.defaultDatasetId).listItems();
 
-    let itemArray = [];
+    const itemArray = items.map((item) => {
+      return item.latestComments;
+    });
 
-    for (const item of items) {
-      itemArray.push(item.latestComments);
+    let filteredArray = [];
+
+    if (itemArray) {
+      for (let i = 0; i < itemArray.length; i++) {
+        for (let j = 0; j < itemArray[i].length; j++) {
+          filteredArray.push(itemArray[i][j]);
+        }
+      }
     }
 
-    return res.status(200).send(JSON.stringify(itemArray));
+    return res.status(200).send(JSON.stringify(filteredArray));
   })();
 });
 

@@ -15,62 +15,42 @@ function App() {
   const [predictions, setPredictions] = useState("");
   const [userArray, setUserArray] = useState("");
 
-  const requestHandler = async (event) => {
+  const requestHandler = async () => {
     try {
       console.log("loading...");
-      setLoading(true);
-      // const response = await axios.post("http://localhost:8080/apify", {
-      //   username: enteredName,
-      // });
+      const response = await axios.post("http://localhost:8080/apify", {
+        username: enteredName,
+      });
 
-      // const comments = response.data;
+      const comments = response.data;
 
-      const comments = data;
+      setUserArray(comments);
 
-      let filteredArray = [];
+      console.log(comments);
 
-      for (let i = 0; i < comments.length; i++) {
-        for (let j = 0; j < comments[i].length; j++) {
-          filteredArray.push(comments[i][j]);
-        }
-      }
+      let result = await comments.map(({ text }) => text);
 
-      setUserArray(filteredArray);
+      console.log(result);
 
-      // console.log(userArray);
+      const cohereResponse = await axios.post("http://localhost:8080/cohere", {
+        text: result,
+      });
 
-      if (userArray) {
-        console.log("user array");
-        let result = userArray.map(({ text }) => text);
-
-        // console.log(result);
-        setLoading(false);
-
-        const secondResponse = await axios.post(
-          "http://localhost:8080/cohere",
-          {
-            text: result,
-          }
-        );
-
-        // console.log(secondResponse.data);
-        setPredictions(secondResponse.data);
-        console.log("done");
-        setLoading(false);
-        // navigate(`/dashboard/${enteredName}`);
-      }
+      setPredictions(cohereResponse.data);
+      console.log(cohereResponse);
+      console.log("done");
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  let usernameArray = [];
+  if (userArray && predictions) {
+    let usernameArray = [];
 
-  for (const user of userArray) {
-    usernameArray.push(user.ownerUsername);
-  }
+    for (const user of userArray) {
+      usernameArray.push(user.ownerUsername);
+    }
 
-  if (predictions) {
     predictions.forEach((prediction, index) => {
       for (let i = 0; i < usernameArray.length; i++) {
         if (i === index) {
@@ -78,9 +58,9 @@ function App() {
         }
       }
     });
-
-    console.log("predictions", predictions);
   }
+
+  console.log(predictions);
 
   return (
     <BrowserRouter>
