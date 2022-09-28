@@ -5,7 +5,7 @@ import StartPage from "./pages/StartPage/StartPage";
 import LoadingPage from "./pages/LoadingPage/LoadingPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import { Navigation } from "./components/Navigation/Navigation";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import data from "./data/data.json";
 
@@ -15,12 +15,14 @@ function App() {
   const [predictions, setPredictions] = useState("");
   const [userArray, setUserArray] = useState("");
   const [hypeman, setHypeman] = useState("");
+  const [secretAdmirer, setSecretAdmirer] = useState("");
+  const [hater, setHater] = useState("");
 
-  const findBiggestHypeman = useCallback(async () => {
+  const findBiggestHypeman = async () => {
     let hypemans = [];
     let highestHypemanConfidence = 0;
     predictions.forEach((prediction) => {
-      if (prediction.prediction == "Hypeman") {
+      if (prediction.prediction === "Hypeman") {
         hypemans.push(prediction);
       }
     });
@@ -28,23 +30,72 @@ function App() {
     hypemans.forEach((hypeman) => {
       hypeman.confidences.map((confidence) => {
         if (
-          confidence.option == "Hypeman" &&
+          confidence.option === "Hypeman" &&
           confidence.confidence > Number(highestHypemanConfidence)
         ) {
           highestHypemanConfidence = confidence.confidence;
           setHypeman(hypeman);
         }
+        return hypeman;
       });
     });
-    console.log(hypeman);
-    console.log("helllooooo");
-  }, []);
+  };
+
+  const findBiggestAdmirer = async () => {
+    let secretAdmirers = [];
+    let highestAdmirerConfidence = 0;
+    predictions.forEach((prediction) => {
+      if (prediction.prediction === "Secret Admirer") {
+        secretAdmirers.push(prediction);
+      }
+    });
+
+    secretAdmirers.forEach((secretAdmirer) => {
+      secretAdmirer.confidences.map((confidence) => {
+        if (
+          confidence.option === "Secret Admirer" &&
+          confidence.confidence > Number(highestAdmirerConfidence)
+        ) {
+          highestAdmirerConfidence = confidence.confidence;
+          setSecretAdmirer(secretAdmirer);
+        }
+        return hypeman;
+      });
+    });
+  };
+
+  const findBiggestHater = async () => {
+    let haters = [];
+    let highestHaterConfidence = 0;
+    predictions.forEach((prediction) => {
+      if (prediction.prediction === "Low key hater") {
+        haters.push(prediction);
+      }
+    });
+
+    haters.forEach((hater) => {
+      hater.confidences.map((confidence) => {
+        if (
+          confidence.option === "Low key hater" &&
+          confidence.confidence > Number(highestHaterConfidence)
+        ) {
+          highestHaterConfidence = confidence.confidence;
+          setHater(hater);
+        }
+        return hater;
+      });
+    });
+  };
 
   useEffect(() => {
     if (predictions) {
       findBiggestHypeman();
+      findBiggestAdmirer();
+      findBiggestHater();
+      console.log(hypeman);
+      console.log(secretAdmirer);
     }
-  }, [findBiggestHypeman]);
+  }, [findBiggestHypeman, findBiggestAdmirer, predictions]);
 
   const requestHandler = async () => {
     try {
@@ -91,7 +142,9 @@ function App() {
     });
   }
 
-  // console.log(predictions);
+  console.log(hypeman);
+  console.log(secretAdmirer);
+  console.log(predictions);
   return (
     <BrowserRouter>
       <Navigation />
@@ -112,7 +165,13 @@ function App() {
         <Route path="/loading" element={<LoadingPage />} />
         <Route
           path="/dashboard/:username"
-          element={<DashboardPage predictions={predictions} />}
+          element={
+            <DashboardPage
+              hypeman={hypeman}
+              secretAdmirer={secretAdmirer}
+              hater={hater}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>

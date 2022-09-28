@@ -3,11 +3,11 @@ import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import suyog from "../../assets/images/Frame10.png";
 import nicole from "../../assets/images/Frame11.png";
-import hater from "../../assets/images/hater.png";
+import haterImage from "../../assets/images/hater.png";
 import bot from "../../assets/images/bot.png";
 import "./CategoriesList.scss";
 
-export default function CategoriesList({ predictions }) {
+export default function CategoriesList({ hypeman, secretAdmirer, hater }) {
   const responsive = {
     0: { items: 1 },
     568: { items: 2 },
@@ -19,7 +19,7 @@ export default function CategoriesList({ predictions }) {
       <span className="hypeman__category">🙌 &nbsp; Biggest Hype Man</span>
       <img src={suyog} className="item__image"></img>
       <div className="item__container">
-        <h3>Suyog Joshi</h3>
+        <h3>{hypeman.username}</h3>
         <p className="item__text">
           This follower is loud and proud about their faith in you. Through your
           highest and lows, this person is your biggest cheerleader.
@@ -31,7 +31,7 @@ export default function CategoriesList({ predictions }) {
       <span className="admirer__category">❤️&nbsp; Secret Admirer</span>
       <img src={nicole} className="item__image"></img>
       <div className="item__container">
-        <h3>Nicole Cevey</h3>
+        <h3>{secretAdmirer.username}</h3>
         <p className="item__text">
           This follower only has nice things to say about you. We wonder
           why.....
@@ -41,9 +41,9 @@ export default function CategoriesList({ predictions }) {
     </div>,
     <div className="item" data-value="3">
       <span className="hater__category">☠️&nbsp; Low Key Hater</span>
-      <img src={hater} className="item__image"></img>
+      <img src={haterImage} className="item__image"></img>
       <div className="item__container">
-        <h3>Javas Cript</h3>
+        <h3>{hater.username}</h3>
         <p className="item__text">
           This follower doesn’t comment a lot, but they sure have a bunch of
           nasty things to say.
