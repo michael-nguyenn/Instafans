@@ -17,6 +17,7 @@ function App() {
   const [hypeman, setHypeman] = useState("");
   const [secretAdmirer, setSecretAdmirer] = useState("");
   const [hater, setHater] = useState("");
+  const [bot, setBot] = useState("");
 
   const findBiggestHypeman = async () => {
     let hypemans = [];
@@ -87,13 +88,35 @@ function App() {
     });
   };
 
+  const findBiggestBot = async () => {
+    let bots = [];
+    let highestBotConfidence = 0;
+    predictions.forEach((prediction) => {
+      if (prediction.prediction === "Bot") {
+        bots.push(prediction);
+      }
+    });
+
+    bots.forEach((bot) => {
+      bot.confidences.map((confidence) => {
+        if (
+          confidence.option === "Bot" &&
+          confidence.confidence > Number(highestBotConfidence)
+        ) {
+          highestBotConfidence = confidence.confidence;
+          setBot(bot);
+        }
+        return bot;
+      });
+    });
+  };
+
   useEffect(() => {
     if (predictions) {
       findBiggestHypeman();
       findBiggestAdmirer();
       findBiggestHater();
-      console.log(hypeman);
-      console.log(secretAdmirer);
+      findBiggestBot();
     }
   }, [findBiggestHypeman, findBiggestAdmirer, predictions]);
 
@@ -142,9 +165,6 @@ function App() {
     });
   }
 
-  console.log(hypeman);
-  console.log(secretAdmirer);
-  console.log(predictions);
   return (
     <BrowserRouter>
       <Navigation />
@@ -170,6 +190,7 @@ function App() {
               hypeman={hypeman}
               secretAdmirer={secretAdmirer}
               hater={hater}
+              bot={bot}
             />
           }
         />

@@ -4,10 +4,10 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import suyog from "../../assets/images/Frame10.png";
 import nicole from "../../assets/images/Frame11.png";
 import haterImage from "../../assets/images/hater.png";
-import bot from "../../assets/images/bot.png";
+import botImage from "../../assets/images/bot.png";
 import "./CategoriesList.scss";
 
-export default function CategoriesList({ hypeman, secretAdmirer, hater }) {
+export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
   const responsive = {
     0: { items: 1 },
     568: { items: 2 },
@@ -53,9 +53,9 @@ export default function CategoriesList({ hypeman, secretAdmirer, hater }) {
     </div>,
     <div className="item" data-value="4">
       <span className="bot__category">🤖&nbsp; Probably a Bot </span>
-      <img src={bot} className="item__image"></img>
+      <img src={botImage} className="item__image"></img>
       <div className="item__container">
-        <h3>Wall Lee</h3>
+        <h3>{bot.username}</h3>
         <p className="item__text">A bunch of spam, nothing else to see here.</p>
         <button className="bot__button">Learn More</button>
       </div>
