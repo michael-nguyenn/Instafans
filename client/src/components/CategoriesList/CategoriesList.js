@@ -5,6 +5,7 @@ import suyog from "../../assets/images/Frame10.png";
 import nicole from "../../assets/images/Frame11.png";
 import haterImage from "../../assets/images/hater.png";
 import botImage from "../../assets/images/bot.png";
+import secretAdmirerImage from "../../assets/images/secretAdmirerImage.jpeg";
 import "./CategoriesList.scss";
 
 export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
