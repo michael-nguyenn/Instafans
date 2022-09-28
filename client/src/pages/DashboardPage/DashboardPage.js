@@ -1,9 +1,9 @@
 import CategoriesList from "../../components/CategoriesList/CategoriesList";
 
-export default function DashboardPage() {
+export default function DashboardPage({ predictions }) {
   return (
     <>
-      <CategoriesList />
+      <CategoriesList predictions={predictions} />
     </>
   );
 }

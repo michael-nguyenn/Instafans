@@ -7,7 +7,7 @@ import hater from "../../assets/images/hater.png";
 import bot from "../../assets/images/bot.png";
 import "./CategoriesList.scss";
 
-export default function CategoriesList() {
+export default function CategoriesList({ predictions }) {
   const responsive = {
     0: { items: 1 },
     568: { items: 2 },
@@ -61,6 +61,7 @@ export default function CategoriesList() {
       </div>
     </div>,
   ];
+  // console.log(predictions[0]);
 
   return (
     <section className="card-list">

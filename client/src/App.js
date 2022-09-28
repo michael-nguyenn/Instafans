@@ -1,11 +1,11 @@
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles/global.scss";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import StartPage from "./pages/StartPage/StartPage";
 import LoadingPage from "./pages/LoadingPage/LoadingPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import { Navigation } from "./components/Navigation/Navigation";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import data from "./data/data.json";
 
@@ -14,23 +14,54 @@ function App() {
   const [enteredName, setEnteredName] = useState("");
   const [predictions, setPredictions] = useState("");
   const [userArray, setUserArray] = useState("");
+  const [hypeman, setHypeman] = useState("");
+
+  const findBiggestHypeman = useCallback(async () => {
+    let hypemans = [];
+    let highestHypemanConfidence = 0;
+    predictions.forEach((prediction) => {
+      if (prediction.prediction == "Hypeman") {
+        hypemans.push(prediction);
+      }
+    });
+
+    hypemans.forEach((hypeman) => {
+      hypeman.confidences.map((confidence) => {
+        if (
+          confidence.option == "Hypeman" &&
+          confidence.confidence > Number(highestHypemanConfidence)
+        ) {
+          highestHypemanConfidence = confidence.confidence;
+          setHypeman(hypeman);
+        }
+      });
+    });
+    console.log(hypeman);
+    console.log("helllooooo");
+  }, []);
+
+  useEffect(() => {
+    if (predictions) {
+      findBiggestHypeman();
+    }
+  }, [findBiggestHypeman]);
 
   const requestHandler = async () => {
     try {
       console.log("loading...");
-      const response = await axios.post("http://localhost:8080/apify", {
-        username: enteredName,
-      });
+      // const response = await axios.post("http://localhost:8080/apify", {
+      //   username: enteredName,
+      // });
 
-      const comments = response.data;
+      // const comments = response.data;
 
-      setUserArray(comments);
+      setUserArray(data);
 
-      console.log(comments);
+      // console.log(data);
 
-      let result = await comments.map(({ text }) => text);
+      let result = await data.map(({ text }) => text);
 
-      console.log(result);
+      // console.log(result);
 
       const cohereResponse = await axios.post("http://localhost:8080/cohere", {
         text: result,
@@ -60,8 +91,7 @@ function App() {
     });
   }
 
-  console.log(predictions);
-
+  // console.log(predictions);
   return (
     <BrowserRouter>
       <Navigation />
@@ -80,7 +110,10 @@ function App() {
           }
         />
         <Route path="/loading" element={<LoadingPage />} />
-        <Route path="/dashboard/:username" element={<DashboardPage />} />
+        <Route
+          path="/dashboard/:username"
+          element={<DashboardPage predictions={predictions} />}
+        />
       </Routes>
     </BrowserRouter>
   );
