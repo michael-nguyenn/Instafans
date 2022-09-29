@@ -5,7 +5,7 @@ import StartPage from "./pages/StartPage/StartPage";
 import LoadingPage from "./pages/LoadingPage/LoadingPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import { Navigation } from "./components/Navigation/Navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import data from "./data/data.json";
 
@@ -19,7 +19,7 @@ function App() {
   const [hater, setHater] = useState("");
   const [bot, setBot] = useState("");
 
-  const findBiggestHypeman = async () => {
+  const findBiggestHypeman = useCallback(async () => {
     let hypemans = [];
     let highestHypemanConfidence = 0;
     predictions.forEach((prediction) => {
@@ -40,9 +40,9 @@ function App() {
         return hypeman;
       });
     });
-  };
+  }, [predictions]);
 
-  const findBiggestAdmirer = async () => {
+  const findBiggestAdmirer = useCallback(async () => {
     let secretAdmirers = [];
     let highestAdmirerConfidence = 0;
     predictions.forEach((prediction) => {
@@ -63,9 +63,9 @@ function App() {
         return hypeman;
       });
     });
-  };
+  }, [predictions]);
 
-  const findBiggestHater = async () => {
+  const findBiggestHater = useCallback(async () => {
     let haters = [];
     let highestHaterConfidence = 0;
     predictions.forEach((prediction) => {
@@ -86,9 +86,9 @@ function App() {
         return hater;
       });
     });
-  };
+  }, [predictions]);
 
-  const findBiggestBot = async () => {
+  const findBiggestBot = useCallback(async () => {
     let bots = [];
     let highestBotConfidence = 0;
     predictions.forEach((prediction) => {
@@ -109,7 +109,7 @@ function App() {
         return bot;
       });
     });
-  };
+  }, [predictions]);
 
   useEffect(() => {
     if (predictions) {
@@ -118,11 +118,18 @@ function App() {
       findBiggestHater();
       findBiggestBot();
     }
-  }, [findBiggestHypeman, findBiggestAdmirer, predictions]);
+  }, [
+    findBiggestHypeman,
+    findBiggestAdmirer,
+    findBiggestHater,
+    findBiggestBot,
+    predictions,
+  ]);
 
   const requestHandler = async () => {
     try {
       console.log("loading...");
+      setLoading(true);
       // const response = await axios.post("http://localhost:8080/apify", {
       //   username: enteredName,
       // });
@@ -144,6 +151,7 @@ function App() {
       setPredictions(cohereResponse.data);
       console.log(cohereResponse);
       console.log("done");
+      setLoading(false);
     } catch (error) {
       console.log(error.message);
     }

@@ -5,7 +5,6 @@ import suyog from "../../assets/images/Frame10.png";
 import nicole from "../../assets/images/Frame11.png";
 import haterImage from "../../assets/images/hater.png";
 import botImage from "../../assets/images/bot.png";
-import secretAdmirerImage from "../../assets/images/secretAdmirerImage.jpeg";
 import "./CategoriesList.scss";
 
 export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
@@ -18,7 +17,7 @@ export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
   const items = [
     <div className="item" data-value="1">
       <span className="hypeman__category">🙌 &nbsp; Biggest Hype Man</span>
-      <img src={suyog} className="item__image"></img>
+      <img src={suyog} className="item__image" alt="Hypeman"></img>
       <div className="item__container">
         <h3>{hypeman.username}</h3>
         <p className="item__text">
@@ -30,7 +29,7 @@ export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
     </div>,
     <div className="item" data-value="2">
       <span className="admirer__category">❤️&nbsp; Secret Admirer</span>
-      <img src={nicole} className="item__image"></img>
+      <img src={nicole} className="item__image" alt="Secret admirer"></img>
       <div className="item__container">
         <h3>{secretAdmirer.username}</h3>
         <p className="item__text">
@@ -42,7 +41,7 @@ export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
     </div>,
     <div className="item" data-value="3">
       <span className="hater__category">☠️&nbsp; Low Key Hater</span>
-      <img src={haterImage} className="item__image"></img>
+      <img src={haterImage} className="item__image" alt="Hater"></img>
       <div className="item__container">
         <h3>{hater.username}</h3>
         <p className="item__text">
@@ -54,7 +53,7 @@ export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
     </div>,
     <div className="item" data-value="4">
       <span className="bot__category">🤖&nbsp; Probably a Bot </span>
-      <img src={botImage} className="item__image"></img>
+      <img src={botImage} className="item__image" alt="Bot"></img>
       <div className="item__container">
         <h3>{bot.username}</h3>
         <p className="item__text">A bunch of spam, nothing else to see here.</p>
@@ -62,7 +61,6 @@ export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
       </div>
     </div>,
   ];
-  // console.log(predictions[0]);
 
   return (
     <section className="card-list">
@@ -71,8 +69,9 @@ export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
         items={items}
         responsive={responsive}
         paddingLeft={25}
-        paddingRight={75}
+        paddingRight={25}
         controlsStrategy="alternate"
+        disableDotsControls
       />
     </section>
   );

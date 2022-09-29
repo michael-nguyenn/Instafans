@@ -1,13 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import "./StartForm.scss";
 import LoadingBar from "../LoadingBar/LoadingBar";
-import data from "../../data/data.json";
 
 export default function StartForm({
   loading,
-  setLoading,
   requestHandler,
   setEnteredName,
   enteredName,

@@ -6,12 +6,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 2rem 2rem;
     gap: 2rem;
 
     @include tablet {
         flex-direction: row;
         padding: 7rem 3rem;
+        gap: 3rem;
+    }
+
+    @include desktop {
+        padding: 6rem 3rem;
         gap: 6rem;
     }
 
@@ -29,12 +34,17 @@
     }
 
     &__text {
-        width: 27rem;
+        width: 23rem;
         display: flex;
         text-align: center;
 
         @include tablet {
             text-align: left;
+            width: 22rem;
+        }
+
+        @include desktop {
+            width: 27rem;
         }
     }
 
@@ -42,7 +52,12 @@
         height: 20rem;
     
         @include tablet {
-            height: 30rem;
+            width: 20rem
+        }
+
+        @include desktop {
+            height: 30rem; 
+            width: 28rem
         }
     }
 
