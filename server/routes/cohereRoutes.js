@@ -8,7 +8,6 @@ cohere.init(process.env.COHERE_KEY);
 
 router.route("/").post((req, res) => {
   (async () => {
-    console.log(req.body.text);
     const response = await cohere.classify({
       model: "xlarge",
       inputs: req.body.text,

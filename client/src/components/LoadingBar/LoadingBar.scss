@@ -15,10 +15,17 @@
 
 
     &__icon {
-        width: 30rem;
+        width: 25rem;
+        margin-top: 2rem;
     }
 
     &__text {
         text-align: center;
+        width: 30rem;
+        margin-bottom: 3rem;
+
+        @include tablet {
+            font-size: 2rem;
+        }
     }
 }

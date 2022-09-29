@@ -3,11 +3,11 @@ import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import suyog from "../../assets/images/Frame10.png";
 import nicole from "../../assets/images/Frame11.png";
-import hater from "../../assets/images/hater.png";
-import bot from "../../assets/images/bot.png";
+import haterImage from "../../assets/images/hater.png";
+import botImage from "../../assets/images/bot.png";
 import "./CategoriesList.scss";
 
-export default function CategoriesList() {
+export default function CategoriesList({ hypeman, secretAdmirer, hater, bot }) {
   const responsive = {
     0: { items: 1 },
     568: { items: 2 },
@@ -17,9 +17,9 @@ export default function CategoriesList() {
   const items = [
     <div className="item" data-value="1">
       <span className="hypeman__category">🙌 &nbsp; Biggest Hype Man</span>
-      <img src={suyog} className="item__image"></img>
+      <img src={suyog} className="item__image" alt="Hypeman"></img>
       <div className="item__container">
-        <h3>Suyog Joshi</h3>
+        <h3>{hypeman.username}</h3>
         <p className="item__text">
           This follower is loud and proud about their faith in you. Through your
           highest and lows, this person is your biggest cheerleader.
@@ -29,9 +29,9 @@ export default function CategoriesList() {
     </div>,
     <div className="item" data-value="2">
       <span className="admirer__category">❤️&nbsp; Secret Admirer</span>
-      <img src={nicole} className="item__image"></img>
+      <img src={nicole} className="item__image" alt="Secret admirer"></img>
       <div className="item__container">
-        <h3>Nicole Cevey</h3>
+        <h3>{secretAdmirer.username}</h3>
         <p className="item__text">
           This follower only has nice things to say about you. We wonder
           why.....
@@ -41,9 +41,9 @@ export default function CategoriesList() {
     </div>,
     <div className="item" data-value="3">
       <span className="hater__category">☠️&nbsp; Low Key Hater</span>
-      <img src={hater} className="item__image"></img>
+      <img src={haterImage} className="item__image" alt="Hater"></img>
       <div className="item__container">
-        <h3>Javas Cript</h3>
+        <h3>{hater.username}</h3>
         <p className="item__text">
           This follower doesn’t comment a lot, but they sure have a bunch of
           nasty things to say.
@@ -53,9 +53,9 @@ export default function CategoriesList() {
     </div>,
     <div className="item" data-value="4">
       <span className="bot__category">🤖&nbsp; Probably a Bot </span>
-      <img src={bot} className="item__image"></img>
+      <img src={botImage} className="item__image" alt="Bot"></img>
       <div className="item__container">
-        <h3>Wall Lee</h3>
+        <h3>{bot.username}</h3>
         <p className="item__text">A bunch of spam, nothing else to see here.</p>
         <button className="bot__button">Learn More</button>
       </div>
@@ -69,8 +69,9 @@ export default function CategoriesList() {
         items={items}
         responsive={responsive}
         paddingLeft={25}
-        paddingRight={75}
+        paddingRight={25}
         controlsStrategy="alternate"
+        disableDotsControls
       />
     </section>
   );
