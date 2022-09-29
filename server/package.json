@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "apify-client": "^2.6.0",
+    "axios": "^0.27.2",
     "body-parser": "^1.20.0",
+    "cheerio": "^1.0.0-rc.12",
     "cohere-ai": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",

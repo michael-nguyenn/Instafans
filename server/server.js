@@ -13,6 +13,7 @@ const apify_apiRoutes = require("./routes/apify_routes");
 const apiRoutes = require("./routes/apiRoutes");
 const cohereRoutes = require("./routes/cohereRoutes");
 const resultRoutes = require("./routes/resultRoutes");
+const instaRoutes = require("./routes/instaRoutes");
 
 dotenv.config();
 const PORT = process.env.PORT ?? 8080;
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 app.use("/cohere", cohereRoutes);
 app.use("/result", resultRoutes);
 app.use("/apify", apify_apiRoutes);
+app.use("/insta", instaRoutes);
 
 const start = async () => {
   try {
